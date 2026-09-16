@@ -74,6 +74,16 @@ Na raiz deste projeto, gere:
    convenção de teste conforme minha escolha; regra de segredos conforme minha escolha; Git
    (Conventional Commits, uma mudança lógica por commit, nunca commitar com gate quebrado).
 
+   Se eu escolhi ter testes, a convenção é esta, escrita com exemplo na linguagem do projeto:
+   nome no padrão `Metodo_Cenario_Comportamento` (ex.:
+   `Sacar_ComSaldoInsuficiente_LancaArgumentException`), seguindo o idioma que o CODESTYLE
+   definiu para identificadores; corpo marcado com `// arrange`, `// act`, `// assert` nessa
+   ordem — única exceção à disciplina de comentário, porque separa as fases e denuncia teste que
+   exercita duas coisas; e uma descrição legível no idioma do produto quando o framework aceitar
+   (`[Fact(DisplayName = "Deve retornar erro ao tentar dividir por zero")]` no xUnit, a string do
+   `it` no Jest, docstring no pytest, `group` + `test` no Dart, `t.Run` no Go). Onde o framework
+   só aceita uma string, ela carrega cenário e comportamento e o bloco externo carrega o método.
+
 4. **`ROADMAP.md`** — fila ordenada de bullets em fases; pegar sempre o primeiro não marcado, em
    ordem, sem pular. A ordem das fases é a parte que mais dá errado:
    - Fase 0 é fundação (esqueleto, config de build/lint/format, gate de qualidade, estes próprios

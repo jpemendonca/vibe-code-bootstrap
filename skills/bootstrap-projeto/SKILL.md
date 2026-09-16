@@ -133,10 +133,50 @@ Regra de ouro: se não dá pra checar lendo um diff, não entra aqui — isso é
 - Estratégia de erro: prefira validação como função pura que devolve todos os erros de uma vez
   nas bordas de entrada de usuário; reserve exceção para estado impossível (alarme de bug, não
   caminho de usuário) — adapte ao idioma nativo de erro da linguagem escolhida.
-- Convenção de teste: nomenclatura, o que isola com dependência falsa vs. real, conforme a
-  política do Passo 1.
+- Convenção de teste: o que isola com dependência falsa vs. real, conforme a política do Passo 1,
+  mais a nomenclatura e o corpo descritos logo abaixo.
 - Segredos: os detalhes da política escolhida no Passo 1.
 - Git: Conventional Commits, uma mudança lógica por commit, nunca commitar com gate quebrado.
+
+#### Convenção de teste
+
+Só se aplica se o Passo 1 escolheu ter testes. Escreva estas três regras no `CODESTYLE.md`, com
+exemplo na linguagem do projeto — não deixe implícito.
+
+**Nome no padrão `Metodo_Cenario_Comportamento`.** Três partes separadas por `_`: o que está
+sendo exercitado, em que situação, e o que deve acontecer.
+
+```
+Sacar_ComSaldoInsuficiente_LancaArgumentException
+Somar_ComDoisValoresPositivos_RetornaSomaCorreta
+```
+
+O identificador segue o idioma do código do projeto (inglês, se o `CODESTYLE.md` decidiu inglês
+para identificadores). O padrão é a forma das três partes, não a língua.
+
+**Corpo marcado com `arrange`, `act`, `assert`**, em comentário, nessa ordem. É a única exceção
+à disciplina de comentário deste documento: aqui o comentário não explica o óbvio, ele separa as
+três fases e deixa visível quando um teste está exercitando duas coisas ao mesmo tempo.
+
+**Descrição legível, quando o framework aceitar.** Uma frase no idioma do produto, dizendo o que
+o teste garante — é o que aparece no relatório quando o teste quebra.
+
+```csharp
+[Fact(DisplayName = "Deve retornar erro ao tentar dividir por zero")]
+```
+
+O equivalente muda por ecossistema:
+
+| Stack | Nome do caso | Descrição legível |
+|---|---|---|
+| xUnit / NUnit | nome do método | `[Fact(DisplayName = "...")]`, `[TestCase(TestName = "...")]` |
+| Jest / Vitest | `describe` com o método | a string do `it`/`test` já é a descrição |
+| pytest | nome da função `test_...` | docstring da função |
+| Dart / Flutter | string do `test()` no padrão | `test()` aninhado em `group()` com a frase |
+| Go | `func TestMetodo_Cenario_Comportamento` | `t.Run` com a frase |
+
+Onde o framework só aceita uma string (Jest, Dart), ela carrega o cenário e o comportamento, e o
+`describe`/`group` externo carrega o método — as três partes continuam lá, distribuídas.
 
 ### `ROADMAP.md` — fila de execução
 
