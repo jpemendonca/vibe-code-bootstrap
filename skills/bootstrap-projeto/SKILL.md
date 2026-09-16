@@ -1,14 +1,14 @@
 ---
 name: bootstrap-projeto
-description: Bootstrapa um projeto novo (qualquer linguagem/stack — app, bot, API, CLI, lib) com o esquema de documentação AGENTS.md/SPECS.md/CODESTYLE.md/ROADMAP.md/README.md validado no projeto WorkoutApp para desenvolvimento 100% orientado a agente ("vibe code"). Use ao começar uma PoC, MVP ou projeto novo do zero, antes de escrever qualquer código de produto.
+description: Bootstrapa um projeto novo (qualquer linguagem/stack — app, bot, API, CLI, lib) com o esquema de documentação AGENTS.md/SPECS.md/CODESTYLE.md/ROADMAP.md/README.md para desenvolvimento 100% orientado a agente ("vibe code"). Use ao começar uma PoC, MVP ou projeto novo do zero, antes de escrever qualquer código de produto.
 ---
 
 # Bootstrap de projeto vibe-code
 
-Você vai gerar a fundação documental de um projeto novo, no diretório de trabalho atual, seguindo
-o método validado no projeto WorkoutApp (.NET + Expo): um pequeno conjunto de documentos que
-tornam o projeto executável por um agente de código do início ao fim — inclusive por um modelo
-mais barato, num loop autônomo, depois que a fundação estiver escrita.
+Você vai gerar a fundação documental de um projeto novo, no diretório de trabalho atual: um
+pequeno conjunto de documentos que tornam o projeto executável por um agente de código do início
+ao fim — inclusive por um modelo mais barato, num loop autônomo, depois que a fundação estiver
+escrita.
 
 **Isto é um método, não um template de conteúdo.** Nada aqui é específico de uma linguagem ou
 stack. Adapte cada seção ao que o usuário está construindo — não copie estrutura de API para um
@@ -20,23 +20,33 @@ Pergunte (via AskUserQuestion quando fizer sentido oferecer opções, ou direto 
 faltar do seguinte. Não assuma nada que muda a estrutura dos documentos:
 
 1. **O que o produto faz**, em uma frase.
-2. **Tipo de projeto e stack.** Se o usuário não tiver decidido a stack, proponha 2-3 opções
+2. **O caminho principal.** Qual é o fluxo que justifica o produto existir, descrito como o
+   usuário faria, do início ao fim. "Abrir o app, escolher um exercício, lançar as séries e
+   finalizar o treino." "Colar uma URL e receber o resumo." Se o usuário descrever uma tela ou
+   uma camada em vez de um percurso, insista — é a resposta que define a ordem do ROADMAP, e
+   errar aqui é o erro mais caro do método.
+3. **Tipo de projeto e stack.** Se o usuário não tiver decidido a stack, proponha 2-3 opções
    com trade-off objetivo — não decida sozinho uma escolha que ele vai viver por meses.
-3. **Escopo de vida do projeto**: PoC descartável (prioriza velocidade, pode jogar fora) vs.
+4. **De onde vêm os dados no primeiro uso.** O que precisa estar disponível pro caminho
+   principal funcionar na primeira vez que o produto abre: dataset embutido, arquivo local,
+   banco vazio que o usuário preenche, API externa, serviço autenticado. Se a resposta envolve
+   rede ou credencial, pergunte explicitamente se o caminho principal precisa funcionar sem
+   isso — é comum a resposta certa ser "sim", e isso muda a arquitetura inteira.
+5. **Escopo de vida do projeto**: PoC descartável (prioriza velocidade, pode jogar fora) vs.
    projeto que pode virar produto real (prioriza rigor e fundação certa desde o início). Isso
    define o tom de todo o resto — não pergunte isso tarde.
-4. **Quem executa o ROADMAP depois de pronto**: o mesmo agente/modelo que está montando a
+6. **Quem executa o ROADMAP depois de pronto**: o mesmo agente/modelo que está montando a
    fundação agora, ou um modelo mais barato rodando sozinho num loop, checkpoint a checkpoint?
    Se for o segundo caso, os documentos precisam ser mais prescritivos (cada bullet do ROADMAP
    nomeia arquivo e critério de aceite, cada regra do CODESTYLE tem exemplo certo/errado) —
    porque não vai haver um humano por perto pra preencher a lacuna.
-5. **Nível de rigor de testes.** Não assuma o nível mais alto por padrão — pergunte:
+7. **Nível de rigor de testes.** Não assuma o nível mais alto por padrão — pergunte:
    - "sem teste formal / só smoke manual" — PoC descartável, prova de conceito de fim de semana;
    - "teste do caminho feliz" — cobre o fluxo principal, sem perseguir edge case;
    - "cobertura ampla com dependência real isolada" (ex.: container efêmero em vez de mock nas
      bordas de integração, nunca contra banco/serviço de dev real) — projeto que pode crescer,
      onde regressão silenciosa custa caro depois.
-6. **Nível de disciplina de segredos/config.** Também não assuma o mais formal por padrão:
+8. **Nível de disciplina de segredos/config.** Também não assuma o mais formal por padrão:
    - **esquema simples**: um `.env` com valores reais, sem cerimônia — ok pra protótipo local,
      uso pessoal, nada sensível de verdade;
    - **esquema formal**: toda chave de segredo é declarada em algum lugar versionado com valor
@@ -45,9 +55,10 @@ faltar do seguinte. Não assuma nada que muda a estrutura dos documentos:
    Independente da escolha, se existe segredo de verdade envolvido (chave de API, token), a
    regra **"o agente nunca escreve o valor real de um segredo"** vale sempre — o que muda é
    quanta estrutura isso ganha nos documentos.
-7. **Referência visual/de produto**, se houver algo pra copiar o espírito (ex.: um app existente
+9. **Referência visual/de produto**, se houver algo pra copiar o espírito (ex.: um app existente
    cujo layout/fluxo servem de inspiração) — vira um documento de teardown à parte, citado pelos
-   outros, do jeito que `hevy-design-system.md` funcionou no WorkoutApp.
+   outros. Deixe claro no próprio documento que ele descreve **aparência**, e que a ordem do
+   ROADMAP obedece ao caminho principal, não ao teardown.
 
 ## Passo 2 — Gerar os documentos
 
@@ -57,14 +68,16 @@ omita o que não se aplica em vez de deixar seção vazia ou genérica demais pr
 ### `AGENTS.md` — canônico, lido primeiro
 
 - O que é o produto, em poucas frases.
+- **O caminho principal**, escrito como percurso do usuário. É a primeira coisa que um agente
+  novo lê, e a régua pra decidir se um bullet importa.
 - Se houver mais de uma "área" no repo (ex.: backend + app, ou vários serviços), uma tabela
   dizendo o que cada pasta é e seu estado (ativa / congelada / não mexer).
 - Ordem de leitura obrigatória antes de trabalhar (CODESTYLE.md sempre; SPECS.md e ROADMAP.md
   da área que for tocar).
 - **Loop de trabalho**: pegar o primeiro bullet não marcado do ROADMAP, implementar seguindo o
-  CODESTYLE, rodar o gate de qualidade da linguagem escolhida, marcar o bullet, commit em
-  Conventional Commits. Se um bullet se mostrar errado ou impossível, não redefinir em silêncio:
-  deixar não marcado, com uma nota curta embaixo explicando o bloqueio, e seguir pro próximo.
+  CODESTYLE, rodar o gate de qualidade, marcar o bullet, commit em Conventional Commits. Se um
+  bullet se mostrar errado ou impossível, não redefinir em silêncio: deixar não marcado, com uma
+  nota curta embaixo explicando o bloqueio, e seguir pro próximo.
 - **Regras duras** da seção "Regras que não mudam" abaixo, mais qualquer regra específica do
   domínio deste projeto.
 - Mapa do repositório.
@@ -80,6 +93,8 @@ texto.
   fluxo de mensagem/evento para um bot, hierarquia de telas e onde mora o estado para um app,
   módulos e API pública para uma lib.
 - Modelo de dados / modelo de domínio, se houver.
+- **Origem dos dados no primeiro uso**, conforme o Passo 1: o que vem embutido, o que vem de
+  fora, e o que o caminho principal exige que esteja disponível sem rede.
 - Contratos: endpoints REST, schema de tool call de IA, comandos de CLI e seus argumentos —
   o que for aplicável.
 - Autenticação/autorização, se houver.
@@ -121,14 +136,35 @@ Regra de ouro: se não dá pra checar lendo um diff, não entra aqui — isso é
 
 - Fila ordenada de bullets, agrupada em fases. Pegue o primeiro bullet não marcado, em ordem;
   não pule à frente, não agrupe bullets sem relação.
-- "Definição de pronto" declarada no topo: build/lint limpo, teste(s) conforme a política
-  escolhida, formatter limpo, ROADMAP atualizado, commit convencional.
-- Se o modelo que vai executar for o mais barato (Passo 1, pergunta 4), cada bullet nomeia o
-  arquivo esperado e o critério de aceite — não deixe implícito.
-- Bullet bloqueada fica não marcada, com nota de uma linha embaixo explicando o bloqueio, em vez
-  de redefinida ou apagada.
-- Fase 0 normalmente é fundação: esqueleto do projeto, config de build/lint/format, gate de
-  qualidade (equivalente a um hook de pre-commit), estes próprios documentos.
+- **Ordem das fases, e esta é a parte que mais dá errado:**
+  - Fase 0 é fundação: esqueleto do projeto, config de build/lint/format, gate de qualidade,
+    estes próprios documentos.
+  - **Fase 1 entrega o caminho principal inteiro, ponta a ponta.** Feio, sem polimento, com o
+    mínimo de tela que der — mas percorrível pelo usuário do começo ao fim.
+  - Só depois vêm as fases de ampliação, e por último as periféricas: preferências, tema,
+    perfil, telas de apoio, créditos.
+  - Nenhuma fase além da 0 pode entregar só infraestrutura. Design system, camada de domínio
+    isolada, cliente de API sozinho: nada disso é uma fase — é parte da fase que usa aquilo.
+  - Se você está montando a ordem por camada técnica (primeiro o visual, depois o domínio,
+    depois os dados, depois as telas), pare e refaça. Essa ordem produz um projeto que passa em
+    todos os testes e não faz nada.
+- **Definição de pronto**, declarada no topo, separando duas coisas que é fácil confundir:
+  - *código escrito*: build/lint limpo, teste(s) conforme a política escolhida, formatter limpo,
+    ROADMAP atualizado, commit convencional;
+  - *caminho percorrido*: alguém abriu o produto e usou aquilo. Não precisa ser obrigatório —
+    é decisão do usuário se isso trava ou não um bullet. Mas o bullet declara qual dos dois
+    aconteceu. Um bullet que só tem código escrito diz isso com todas as letras.
+  - A frase que resume: **não confunda código escrito com caminho validado.**
+- Formato de cada bullet, quando o projeto for maior que uma PoC de fim de semana: origem (de
+  onde veio o requisito), escopo (o que entra e o que fica fora), aceite (quando ganha `[x]`).
+  Ao concluir, uma nota datada embaixo — `> Validação (AAAA-MM-DD): ...` — dizendo o que foi
+  feito e o que foi observado funcionando. Ao parar no meio, `> Em andamento (AAAA-MM-DD): ...`
+  com o que existe, o que falta e o próximo passo.
+- Bullet bloqueado fica não marcado, com nota de uma linha embaixo explicando o bloqueio, em vez
+  de redefinido ou apagado. Se existe um item que depende do usuário (conta paga, aparelho
+  físico, credencial), ele fica **na fila, na posição que atrapalha menos**, e nunca com uma
+  observação dizendo que não bloqueia nada — porque normalmente ele é justamente o item que
+  provaria que o resto funciona.
 
 ### `README.md`
 
@@ -144,6 +180,10 @@ tiver um mecanismo de pre-commit hook nativo ou fácil de configurar, deixe-o pr
 force um hook custom numa linguagem que já tem convenção própria pra isso (ex.: usar o hook nativo
 do framework em vez de reinventar um script).
 
+Diga no `AGENTS.md`, em uma linha, o que o gate **não** cobre: normalmente ele não abre o
+produto, não percorre o caminho principal e não prova que os dados chegam de verdade. Gate verde
+é condição necessária, não prova de que existe produto.
+
 ## Passo 3 — Fechar
 
 Termine com um resumo curto do que foi criado e, explicitamente, o que o usuário precisa
@@ -157,13 +197,25 @@ mesmo.
 - Warnings/lint tratados como erro não se resolve com supressão — conserta o código.
 - Nunca contornar o gate de qualidade (`--no-verify` ou equivalente).
 - Bullet bloqueado não é redefinido em silêncio.
+- **Nada entra sem quem chame.** Função, módulo ou tela sem chamador no código de produção não
+  é bullet pronto. Teste não conta como chamador: teste monta o cenário na mão e por isso passa
+  mesmo quando o produto nunca executa aquele caminho.
 
-## Camada opcional: Ponytail
+## Erros que este método já cometeu
 
-O plugin [Ponytail](https://github.com/DietrichGebert/ponytail) (instalado neste ambiente) aplica
-uma "escada de decisão" antes de gerar código — preferir não escrever nada, depois reusar código
-existente, depois stdlib/nativo do ecossistema, só por último código custom — reduzindo bloat sem
-abrir mão de guardrails de segurança. Ative com `/ponytail lite|full|ultra` quando o usuário
-quiser essa camada extra de disciplina de minimalismo durante a execução do ROADMAP; `/ponytail
-off` desliga. Não é obrigatório — mencione a opção ao usuário no resumo final, ele decide por
-projeto, do mesmo jeito que decide o nível de rigor de teste e de segredos no Passo 1.
+Casos reais, para reconhecer o padrão antes de repeti-lo:
+
+- **Roadmap por camada.** Um app de treino organizou as fases em design system → domínio →
+  catálogo → rotinas → treino. Oitenta bullets marcados, gate verde, 232 testes passando, e
+  nenhum caminho para treinar: o botão principal era uma função vazia e a função que carregava
+  os dados nunca era chamada por ninguém. Os testes passavam porque cada teste inseria os dados
+  na mão antes de olhar a tela.
+- **O item que provaria tudo, fora da fila.** Nesse mesmo projeto, "gerar o build e abrir no
+  aparelho" ficou numa caixa separada, marcada como tarefa do autor, com a observação de que não
+  bloqueava nenhuma fase. Era a única etapa que teria mostrado a tela vazia.
+- **O teardown visual virando o plano.** O guia de aparência era o documento mais detalhado do
+  projeto, então a fila se organizou em volta dele. Copiar a aparência ganhou prioridade sobre
+  copiar o funcionamento.
+- **A dependência externa decidida cedo demais.** O catálogo de dados foi parar atrás de uma API
+  autenticada porque uma PoC anterior já tinha essa API. O produto passou a exigir servidor e
+  token pra listar informação que cabia embutida no próprio app.

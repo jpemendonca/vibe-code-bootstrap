@@ -1,21 +1,22 @@
 # Vibe-Code Bootstrap
 
 Um método genérico para bootstrappar projetos de software do zero (qualquer linguagem, qualquer
-tipo: app, bot, API, CLI, lib) seguindo o esquema de desenvolvimento 100% orientado a agente
-("vibe code") validado no projeto WorkoutApp.
+tipo: app, bot, API, CLI, lib) seguindo um esquema de desenvolvimento 100% orientado a agente
+("vibe code").
 
 ## O que é
 
 Vibe-code é um método que torna um projeto executável por um agente de código do início ao fim —
 inclusive por um modelo mais barato rodando sozinho num loop depois que a fundação está pronta.
 A fundação é um pequeno conjunto de documentos que especificam produto, arquitetura, estilo de
-código, e um fila ordenada de tarefas (ROADMAP), cada uma = um commit.
+código, e uma fila ordenada de tarefas (ROADMAP), cada uma = um commit.
 
 Este repositório contém:
 
 - **`skills/bootstrap-projeto/SKILL.md`**: Uma skill para Claude Code (`/bootstrap-projeto`) que
-  gera a fundação documental de um projeto novo. Pergunta contexto do projeto (tipo, stack,
-  nível de rigor de testes, nível de disciplina de segredos) e cria os arquivos adaptados.
+  gera a fundação documental de um projeto novo. Pergunta contexto do projeto (caminho principal,
+  tipo, stack, origem dos dados, nível de rigor de testes, nível de disciplina de segredos) e
+  cria os arquivos adaptados.
 
 - **`vibe-coding-project-bootstrap.md`**: O mesmo método em formato de prompt autocontido —
   cole em qualquer conversa nova com um agente de código, no diretório vazio do projeto.
@@ -38,7 +39,7 @@ Depois, em qualquer novo projeto (dir vazio ou quase vazio), abra Claude Code e 
 ```
 
 A skill vai:
-1. Perguntar o contexto do projeto (produto, stack, tipo, nível de rigor);
+1. Perguntar o contexto do projeto (produto, caminho principal, stack, origem dos dados, rigor);
 2. Gerar `AGENTS.md`, `SPECS.md`, `CODESTYLE.md`, `ROADMAP.md`, `README.md` adaptados;
 3. Configurar gate de qualidade (hook/script equivalente ao comando nativo da linguagem);
 4. Listar o que você precisa preencher manualmente (segredos, `.env`, etc.).
@@ -55,45 +56,48 @@ diretório do novo projeto.
    `CODESTYLE.md` (regras verificáveis no diff) → `ROADMAP.md` (fila de tarefas) → `README.md`
    (humano).
 
-2. **Loop**: Pegar primeiro bullet não marcado do ROADMAP → implementar com teste → rodar gate
+2. **Ordem**: Fase 0 é fundação. **Fase 1 entrega o caminho principal inteiro, ponta a ponta** —
+   feio, mas percorrível. Ampliação depois, periféricas (tema, preferências, telas de apoio) por
+   último. Nenhuma fase além da 0 entrega só infraestrutura.
+
+3. **Loop**: Pegar primeiro bullet não marcado do ROADMAP → implementar com teste → rodar gate
    de qualidade → marcar bullet → commit em Conventional Commits → repetir.
 
-3. **Regras duras**:
+4. **Regras duras**:
    - Agente nunca escreve valor real de segredo.
    - Uma mudança lógica = um commit.
    - Bullet bloqueado fica não marcado com nota de bloqueio (nunca redefinido em silêncio).
    - Gate de qualidade nunca é contornado.
+   - Nada entra sem quem chame — teste não conta como chamador.
 
-4. **Flexibilidade**: O que é "nível de rigor de testes" e "nível de disciplina de segredos"
+5. **Flexibilidade**: O que é "nível de rigor de testes" e "nível de disciplina de segredos"
    são perguntas — você escolhe por projeto. PoC? Pode ser "sem teste formal" + ".env simples".
    Produto? "Teste com dependência real" + "esquema formal de segredos".
 
+## Não confunda código escrito com caminho validado
+
+O gate de qualidade não abre o produto. Ele não percorre o caminho principal e não prova que os
+dados chegam de verdade. Gate verde é condição necessária, não prova de que existe produto.
+
+Por isso a "definição de pronto" do ROADMAP separa duas coisas: *código escrito* (build, lint,
+teste, commit) e *caminho percorrido* (alguém abriu e usou). Percorrer não precisa ser
+obrigatório — mas o bullet declara qual dos dois aconteceu.
+
+A skill traz uma seção de **erros que este método já cometeu**, com casos reais. O principal:
+um app organizado por camada técnica fechou 80 bullets com gate verde e 232 testes passando, sem
+nenhum caminho para o usuário fazer a única coisa que o produto prometia. Os testes passavam
+porque cada teste montava os dados na mão antes de olhar a tela.
+
 ## Origem
 
-Extraído e generalizado do projeto [WorkoutApp](https://github.com/jpemendonca/WorkoutApp), que
-validou esse método de ponta a ponta em um projeto .NET + Expo. O método é agnóstico de
-linguagem/stack — funciona pra Go, Python, JS, Rust, C#, o que você quiser.
-
-## Camada opcional: Ponytail
-
-O repositório sugere (opcional) o plugin
-[Ponytail](https://github.com/DietrichGebert/ponytail), que aplica uma "escada de decisão"
-antes de gerar código: prefira não escrever nada → reusar código → stdlib/nativo →
-código custom. Reduz bloat sem sacrificar segurança.
-
-Instale com:
-
-```bash
-claude plugin marketplace add DietrichGebert/ponytail
-claude plugin install ponytail@ponytail
-```
-
-Use com `/ponytail lite|full|ultra` durante a execução do ROADMAP.
+Extraído do projeto [WorkoutApp](https://github.com/jpemendonca/WorkoutApp) (.NET + Expo) e
+revisado depois de dois projetos reais: um que funcionou (app Flutter entregue em poucos dias) e
+o próprio WorkoutApp, que produziu a lição do parágrafo acima. O método é agnóstico de
+linguagem/stack — funciona pra Go, Python, JS, Rust, C#, Dart, o que você quiser.
 
 ## Referência de contexto
 
 - **WorkoutApp (origem)**: https://github.com/jpemendonca/WorkoutApp
-- **Ponytail (plugin complementar)**: https://github.com/DietrichGebert/ponytail
 
 ---
 
