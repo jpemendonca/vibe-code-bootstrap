@@ -40,7 +40,8 @@ Depois, em qualquer novo projeto (dir vazio ou quase vazio), abra Claude Code e 
 
 A skill vai:
 1. Perguntar o contexto do projeto (produto, caminho principal, stack, origem dos dados, rigor);
-2. Gerar `AGENTS.md`, `SPECS.md`, `CODESTYLE.md`, `ROADMAP.md`, `README.md` adaptados;
+2. Gerar `AGENTS.md`, `SPECS.md`, `CODESTYLE.md`, `ROADMAP.md`, `README.md` adaptados, mais o
+   ponteiro `CLAUDE.md`;
 3. Configurar gate de qualidade (hook/script equivalente ao comando nativo da linguagem);
 4. Listar o que você precisa preencher manualmente (segredos, `.env`, etc.).
 
@@ -54,7 +55,8 @@ diretório do novo projeto.
 
 1. **Documentos**: `AGENTS.md` (canônico) → `SPECS.md` (produto/arquitetura/decisões) →
    `CODESTYLE.md` (regras verificáveis no diff) → `ROADMAP.md` (fila de tarefas) → `README.md`
-   (humano).
+   (humano). `CLAUDE.md` (e `GEMINI.md`, se for o caso) nascem junto, com uma única linha
+   `@AGENTS.md` — ponteiro, nunca cópia.
 
 2. **Ordem**: Fase 0 é fundação. **Fase 1 entrega o caminho principal inteiro, ponta a ponta** —
    feio, mas percorrível. Ampliação depois, periféricas (tema, preferências, telas de apoio) por

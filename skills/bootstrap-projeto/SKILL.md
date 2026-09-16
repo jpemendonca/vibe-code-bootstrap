@@ -82,9 +82,18 @@ omita o que não se aplica em vez de deixar seção vazia ou genérica demais pr
   domínio deste projeto.
 - Mapa do repositório.
 
-Se o projeto usa mais de um agente de código (Claude Code, Codex, Gemini, etc.), `AGENTS.md` é
-o único dono do conteúdo — `CLAUDE.md`, `GEMINI.md` etc. só contêm `@AGENTS.md`, nunca duplicam
-texto.
+### Ponteiros de agente — `CLAUDE.md`, `GEMINI.md` e afins
+
+`AGENTS.md` é sempre o único dono do conteúdo, mesmo que hoje só exista um agente no projeto.
+Crie os ponteiros desde o começo, junto com ele. Cada ponteiro tem uma linha — `@AGENTS.md` — e
+nada mais.
+
+Nunca duplique texto entre eles. Conteúdo repetido diverge por volta da terceira sessão, e a
+partir daí o agente segue a cópia velha sem avisar ninguém.
+
+Crie no mínimo `CLAUDE.md`. Acrescente `GEMINI.md`, `AGENT.md` ou o que a ferramenta do usuário
+esperar, se ele usar outras. Se o repositório tiver mais de uma área com `AGENTS.md` próprio,
+cada área ganha o seu ponteiro, apontando para o `AGENTS.md` da própria pasta.
 
 ### `SPECS.md` — produto, arquitetura, decisões
 

@@ -54,9 +54,8 @@ Na raiz deste projeto, gere:
    trabalho** (pegar o primeiro bullet não marcado do ROADMAP, implementar seguindo o CODESTYLE,
    rodar o gate de qualidade, marcar o bullet, commit em Conventional Commits — bullet bloqueado
    fica não marcado com nota de bloqueio, nunca redefinido em silêncio); regras duras (ver
-   abaixo); mapa do repositório; e uma linha dizendo o que o gate **não** cobre. Se eu usar mais
-   de um agente de código no projeto, `CLAUDE.md`/`GEMINI.md`/etc. só importam `@AGENTS.md`,
-   nunca duplicam conteúdo.
+   abaixo); mapa do repositório; e uma linha dizendo o que o gate **não** cobre. `AGENTS.md` é
+   sempre o único dono do conteúdo.
 
 2. **`SPECS.md`** — visão de produto e escopo dentro/fora; arquitetura na forma que fizer
    sentido pro tipo de projeto (camadas de código, fluxo de mensagem/evento, hierarquia de
@@ -103,6 +102,12 @@ Na raiz deste projeto, gere:
 
 6. **Gate de qualidade** equivalente ao comando/hook nativo da stack escolhida, documentado no
    `AGENTS.md`.
+
+7. **Ponteiros de agente**, desde o início e mesmo que eu use só um agente hoje: `CLAUDE.md` com
+   uma única linha, `@AGENTS.md`, e nada mais. Acrescente `GEMINI.md`/`AGENT.md` se eu usar essas
+   ferramentas. Nunca duplicam conteúdo — cópia repetida diverge e o agente passa a seguir a
+   versão velha. Se o repo tiver mais de uma área com `AGENTS.md` próprio, cada área ganha o seu
+   ponteiro.
 
 ## Regras que não mudam, qualquer que seja a stack
 
