@@ -52,9 +52,6 @@ faltar do seguinte. Não assuma nada que muda a estrutura dos documentos:
    - **esquema formal**: toda chave de segredo é declarada em algum lugar versionado com valor
      vazio ou placeholder reconhecidamente falso; o agente nunca escreve o valor real — quem
      preenche é o usuário, fora do fluxo do agente, em `.env`/secret manager/user-secrets.
-   Independente da escolha, se existe segredo de verdade envolvido (chave de API, token), a
-   regra **"o agente nunca escreve o valor real de um segredo"** vale sempre — o que muda é
-   quanta estrutura isso ganha nos documentos.
 9. **Referência visual/de produto**, se houver algo pra copiar o espírito (ex.: um app existente
    cujo layout/fluxo servem de inspiração) — vira um documento de teardown à parte, citado pelos
    outros. Deixe claro no próprio documento que ele descreve **aparência**, e que a ordem do
@@ -138,7 +135,7 @@ Regra de ouro: se não dá pra checar lendo um diff, não entra aqui — isso é
   caminho de usuário) — adapte ao idioma nativo de erro da linguagem escolhida.
 - Convenção de teste: nomenclatura, o que isola com dependência falsa vs. real, conforme a
   política do Passo 1.
-- Segredos: a regra dura de nunca escrever valor real, mais os detalhes da política escolhida.
+- Segredos: os detalhes da política escolhida no Passo 1.
 - Git: Conventional Commits, uma mudança lógica por commit, nunca commitar com gate quebrado.
 
 ### `ROADMAP.md` — fila de execução
@@ -174,6 +171,11 @@ Regra de ouro: se não dá pra checar lendo um diff, não entra aqui — isso é
   físico, credencial), ele fica **na fila, na posição que atrapalha menos**, e nunca com uma
   observação dizendo que não bloqueia nada — porque normalmente ele é justamente o item que
   provaria que o resto funciona.
+- **O ROADMAP é a única fila de trabalho.** Quando o usuário testar e pedir uma correção ou uma
+  mudança, ela entra como bullet novo, na posição que fizer sentido, antes de ser implementada.
+  Vale para bug encontrado no uso, ajuste de layout, mudança de escopo e ideia que surgiu no meio
+  da conversa. Nada é consertado direto e em silêncio: o roadmap é o que permite outro agente,
+  em outra máquina, saber o que aconteceu sem ler o histórico do chat.
 
 ### `README.md`
 
@@ -196,12 +198,12 @@ produto, não percorre o caminho principal e não prova que os dados chegam de v
 ## Passo 3 — Fechar
 
 Termine com um resumo curto do que foi criado e, explicitamente, o que o usuário precisa
-preencher manualmente (segredos reais, `.env`, credenciais de deploy) — nunca preencha isso você
-mesmo.
+preencher manualmente (segredos reais, `.env`, credenciais de deploy).
 
 ## Regras que não mudam, qualquer que seja a stack
 
-- O agente nunca escreve o valor real de um segredo, em nenhum arquivo, em nenhuma política.
+- **Toda mudança vira bullet no ROADMAP antes de virar código** — inclusive correção que o
+  usuário pediu depois de testar. Escreva o bullet, depois implemente.
 - Nenhuma dependência nova sem um bullet no ROADMAP que a peça.
 - Warnings/lint tratados como erro não se resolve com supressão — conserta o código.
 - Nunca contornar o gate de qualidade (`--no-verify` ou equivalente).

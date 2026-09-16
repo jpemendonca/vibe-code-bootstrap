@@ -111,7 +111,8 @@ Na raiz deste projeto, gere:
 
 ## Regras que não mudam, qualquer que seja a stack
 
-- Você nunca escreve o valor real de um segredo, em nenhum arquivo.
+- **Toda mudança vira bullet no ROADMAP antes de virar código** — inclusive correção que eu pedir
+  depois de testar. Escreva o bullet, depois implemente. Nada é consertado direto e em silêncio.
 - Nenhuma dependência nova sem um bullet no ROADMAP que a peça.
 - Warning/lint tratado como erro não se resolve com supressão — conserta o código.
 - Nunca contornar o gate de qualidade.
@@ -142,4 +143,4 @@ Casos reais, pra reconhecer o padrão antes de repetir:
 ## Ao terminar
 
 Resuma o que foi criado e liste explicitamente o que eu preciso preencher manualmente
-(segredos reais, `.env`, credenciais de deploy) — não preencha isso por mim.
+(segredos reais, `.env`, credenciais de deploy).

@@ -66,7 +66,8 @@ diretório do novo projeto.
    de qualidade → marcar bullet → commit em Conventional Commits → repetir.
 
 4. **Regras duras**:
-   - Agente nunca escreve valor real de segredo.
+   - Toda mudança vira bullet no ROADMAP antes de virar código, inclusive correção pedida
+     depois de testar.
    - Uma mudança lógica = um commit.
    - Bullet bloqueado fica não marcado com nota de bloqueio (nunca redefinido em silêncio).
    - Gate de qualidade nunca é contornado.
