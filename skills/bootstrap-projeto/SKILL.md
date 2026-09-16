@@ -176,6 +176,15 @@ Regra de ouro: se não dá pra checar lendo um diff, não entra aqui — isso é
   Vale para bug encontrado no uso, ajuste de layout, mudança de escopo e ideia que surgiu no meio
   da conversa. Nada é consertado direto e em silêncio: o roadmap é o que permite outro agente,
   em outra máquina, saber o que aconteceu sem ler o histórico do chat.
+- **Exceção, uma só: mudança que não altera comportamento.** Erro de digitação em comentário ou
+  documento, formatação, link quebrado, renomear variável local. Essas você conserta direto, no
+  commit do bullet em que estiver.
+
+  A exceção acaba onde começa o comportamento. Ajuste de texto que o usuário lê na tela é
+  comportamento. Correção de lógica é comportamento, mesmo que caiba numa linha. E **se o usuário
+  reportou, é bullet** — o tamanho do conserto não decide, quem decide é o fato de aquilo ter
+  aparecido no uso. O propósito do bullet ali não é organizar o trabalho, é registrar que o
+  problema existiu.
 
 ### `README.md`
 
@@ -203,7 +212,9 @@ preencher manualmente (segredos reais, `.env`, credenciais de deploy).
 ## Regras que não mudam, qualquer que seja a stack
 
 - **Toda mudança vira bullet no ROADMAP antes de virar código** — inclusive correção que o
-  usuário pediu depois de testar. Escreva o bullet, depois implemente.
+  usuário pediu depois de testar. Escreva o bullet, depois implemente. A única exceção é mudança
+  que não altera comportamento (digitação, formatação, link, nome de variável local); se o
+  usuário reportou, é bullet, por menor que seja o conserto.
 - Nenhuma dependência nova sem um bullet no ROADMAP que a peça.
 - Warnings/lint tratados como erro não se resolve com supressão — conserta o código.
 - Nunca contornar o gate de qualidade (`--no-verify` ou equivalente).

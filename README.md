@@ -67,7 +67,7 @@ diretório do novo projeto.
 
 4. **Regras duras**:
    - Toda mudança vira bullet no ROADMAP antes de virar código, inclusive correção pedida
-     depois de testar.
+     depois de testar. Só escapa o que não altera comportamento (digitação, formatação, link).
    - Uma mudança lógica = um commit.
    - Bullet bloqueado fica não marcado com nota de bloqueio (nunca redefinido em silêncio).
    - Gate de qualidade nunca é contornado.

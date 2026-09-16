@@ -113,6 +113,9 @@ Na raiz deste projeto, gere:
 
 - **Toda mudança vira bullet no ROADMAP antes de virar código** — inclusive correção que eu pedir
   depois de testar. Escreva o bullet, depois implemente. Nada é consertado direto e em silêncio.
+  A única exceção é mudança que não altera comportamento: digitação em comentário ou documento,
+  formatação, link quebrado, nome de variável local. Texto que eu leio na tela é comportamento,
+  lógica é comportamento, e se eu reportei, é bullet — o tamanho do conserto não decide.
 - Nenhuma dependência nova sem um bullet no ROADMAP que a peça.
 - Warning/lint tratado como erro não se resolve com supressão — conserta o código.
 - Nunca contornar o gate de qualidade.
